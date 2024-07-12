@@ -76,10 +76,8 @@ RUN Rscript -e "\
   pak::pak(c(gh_pkgs)); \
   "
 
-COPY . /workflow.pacta/
-
-RUN Rscript -e "pak::local_install(root = '/workflow.pacta')"
+COPY . /
 
 # set default run behavior
-ENTRYPOINT ["/workflow.pacta/run-pacta.sh"]
-CMD ["/workflow.pacta/input_dir/default_config.json"]
+ENTRYPOINT ["/run-pacta.sh"]
+CMD ["input_dir/default_config.json"]
