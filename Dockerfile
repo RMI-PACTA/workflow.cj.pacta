@@ -19,7 +19,6 @@ RUN apt-get update \
       libcurl4-openssl-dev=7.81.* \
       libgit2-dev=1.1.* \
       libicu-dev=70.* \
-      libnode-dev=12.22.* \
       libssl-dev=3.0.* \
       openssh-client=1:8.* \
       wget=1.21.* \
@@ -70,11 +69,7 @@ RUN Rscript -e "pak::local_install(root = '/workflow.pacta')"
 
 # set default run behavior
 ENTRYPOINT ["Rscript", "--vanilla", "/workflow.pacta/inst/extdata/scripts/run_pacta.R"]
-
-# Define default mountpoints
-ENV PACTA_DATA_DIR="/mnt/pacta-data" \
-  OUTPUT_DIR="/mnt/output_dir" \
-  PORTFOLIO_DIR="/mnt/portfolios"
+CMD ["/workflow.pacta/input_dir/default_config.json"]
 
 # Create and use non-root user
 RUN useradd -m -s /bin/bash workflow-pacta

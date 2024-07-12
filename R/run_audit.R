@@ -1,7 +1,6 @@
 run_audit <- function(
-  pacta_data_dir,
-  portfolio_dir,
-  portfolio_files,
+  data_dir,
+  portfolio_path,
   output_dir
 ) {
 
@@ -11,50 +10,49 @@ run_audit <- function(
   log_info("Loading input data.")
 
   log_debug("Loading currencies.")
-  currencies <- readRDS(file.path(pacta_data_dir, "currencies.rds"))
+  currencies <- readRDS(file.path(data_dir, "currencies.rds"))
 
   log_debug("Loading fund data.")
-  fund_data <- readRDS(file.path(pacta_data_dir, "fund_data.rds"))
+  fund_data <- readRDS(file.path(data_dir, "fund_data.rds"))
   log_debug("Loading fund list data.")
   total_fund_list <- readRDS(
-    file.path(pacta_data_dir, "total_fund_list.rds")
+    file.path(data_dir, "total_fund_list.rds")
   )
   log_debug("Loading ISIN to fund table.")
   isin_to_fund_table <- readRDS(
-    file.path(pacta_data_dir, "isin_to_fund_table.rds")
+    file.path(data_dir, "isin_to_fund_table.rds")
   )
 
   log_debug("Loading financial data.")
-  fin_data <- readRDS(file.path(pacta_data_dir, "financial_data.rds"))
+  fin_data <- readRDS(file.path(data_dir, "financial_data.rds"))
 
   log_debug("Loading entity info.")
-  entity_info <- pacta.portfolio.audit::get_entity_info(dir = pacta_data_dir)
+  entity_info <- pacta.portfolio.audit::get_entity_info(dir = data_dir)
 
   log_debug("Loading Equity ABCD flags.")
   abcd_flags_equity <- readRDS(
-    file.path(pacta_data_dir, "abcd_flags_equity.rds")
+    file.path(data_dir, "abcd_flags_equity.rds")
   )
   log_debug("Loading Bonds ABCD flags.")
   abcd_flags_bonds <- readRDS(
-    file.path(pacta_data_dir, "abcd_flags_bonds.rds")
+    file.path(data_dir, "abcd_flags_bonds.rds")
   )
 
   log_debug("Loading entity emission intensities.")
   entity_emission_intensities <- readRDS(
-    file.path(pacta_data_dir, "iss_entity_emission_intensities.rds")
+    file.path(data_dir, "iss_entity_emission_intensities.rds")
   )
   log_debug("Loading average sector emission intensities.")
   avg_sector_eis <- readRDS(
-    file.path(pacta_data_dir, "iss_average_sector_emission_intensities.rds")
+    file.path(data_dir, "iss_average_sector_emission_intensities.rds")
   )
 
 
   # Portfolios --------------------------------------------------------------
 
-  log_debug("Looking for portfoliofiles in directory: \"{portfolio_dir}\".")
-  log_info("Reading portfolio from file: \"{portfolio_files}\".")
+  log_info("Reading portfolio from file: \"{portfolio_path}\".")
   portfolio_raw <- pacta.portfolio.import::read_portfolio_csv(
-    filepaths = file.path(portfolio_dir, portfolio_files)
+    filepaths = portfolio_path
   )
 
   log_info("Processing raw portfolio.")
