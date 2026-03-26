@@ -1,5 +1,9 @@
 # Description
 
+[![Project Status: Unsupported](https://www.repostatus.org/badges/latest/unsupported.svg)](https://www.repostatus.org/#unsupported)
+
+**This project is archived for future reference, but no new work is expected in this repository.**
+
 The Dockerfile in this repository creates an image containing a freshly
 cloned copy of workflow.pacta. It also installs the relevant PACTA R packages 
 that it depends on.
